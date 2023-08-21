@@ -90,30 +90,24 @@ class FuncionesGlobales {
         const data = new FormData(formulario);
         let persona = null;
 
+        // ------------- Destructory del iterator
+        const [nombre, edad, ocupacion] = [...data.values()];
+
         switch(data.get('ocupacion')) {
             case 'Estudiante':
-                persona = new Estudiante(
-                    data.get('nombre'),
-                    data.get('edad'),
-                    data.get('ocupacion'),
-                    FuncionesGlobales.generarID()
-                );
+                persona = new Estudiante(nombre, edad, ocupacion);
                 break;
             case 'Profesor':
-                persona = new Profesor(
-                    data.get('nombre'),
-                    data.get('edad'),
-                    data.get('ocupacion'),
-                    FuncionesGlobales.generarID()
-                );
+                persona = new Profesor(nombre, edad, ocupacion);
                 break;
         }
 
+        persona.setID = FuncionesGlobales.generarID();
+
         FuncionesGlobales.#listaPersonas[persona.getID] = persona;
-
-        formulario.reset();
-
         FuncionesGlobales.leerListaPersonas();
+        
+        formulario.reset();
     }
 
     // ------------- Crea un nuevo ID alphanumérico con el instante de creación
