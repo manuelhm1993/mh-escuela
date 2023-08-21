@@ -32,7 +32,7 @@ class FuncionesGlobales {
 
                     FuncionesGlobales.#fragmentEstudiantes.appendChild(clonTemplateEstudiante);
                 break;
-            case 'Profesor':
+                case 'Profesor':
                     const clonTemplateProfesor = FuncionesGlobales.#leerProfesores(persona);
 
                     FuncionesGlobales.#fragmentProfesores.appendChild(clonTemplateProfesor);
@@ -268,7 +268,7 @@ FuncionesGlobales.getSeccionPersonas.addEventListener('click', (e) => {
     const fuenteEvento = e.target;
 
     if(fuenteEvento.matches('.btn.btn-success') || fuenteEvento.matches('.btn.btn-danger')) {
-        FuncionesGlobales.aprobarReprobar(e.target);
+        FuncionesGlobales.aprobarReprobar(fuenteEvento);
     }
 });
 
