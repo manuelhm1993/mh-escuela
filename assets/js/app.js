@@ -1,3 +1,64 @@
+// ------------- Clases globales
+class FuncionesGlobales {
+    // ------------- Campos de clase
+    // 
+    // ------------- Campos globales
+    static #formularioIngreso = document.querySelector('#formulario-ingreso');
+    static #seccionPersonas = document.querySelector('.container main + section.row');
+    static #fragment = new DocumentFragment();
+
+    // ------------- Sección de estudiantes
+    static #seccionEstudiantes = document.querySelector('#estudiantes');
+    static #templateEstudiantes = document.querySelector('#estudiantes-template');
+
+    // ------------- Sección de profesores
+    static #seccionProfesores = document.querySelector('#profesores');
+    static #templateProfesores = document.querySelector('#profesores-template');
+
+    // ------------- Métodos
+    //
+    // ------------- Getters globales
+    //
+    // ------------- Getter del formulario de ingreso
+    static get getFormularioIngreso() {
+        return FuncionesGlobales.#formularioIngreso;
+    }
+
+    // ------------- Getter del formulario de ingreso
+    static get getSeccionPersonas() {
+        return FuncionesGlobales.#seccionPersonas;
+    }
+
+    // ------------- Getter del fragment
+    static get getFragment() {
+        return FuncionesGlobales.#fragment;
+    }
+
+    // ------------- Getters estudiantes
+    //
+    // ------------- Getter de la sección
+    static get getSeccionEstudiantes() {
+        return FuncionesGlobales.#seccionEstudiantes;
+    }
+
+    // ------------- Getter de la sección
+    static get getTemplateEstudiantes() {
+        return FuncionesGlobales.#templateEstudiantes;
+    }
+
+    // ------------- Getters profesores
+    //
+    // ------------- Getter de la sección
+    static get getSeccionProfesores() {
+        return FuncionesGlobales.#seccionProfesores;
+    }
+
+    // ------------- Getter de la sección
+    static get getTemplateProfesores() {
+        return FuncionesGlobales.#templateProfesores;
+    }
+}
+
 // ------------- Clase padre
 class Persona {
     // ------------- Campos de clase
@@ -50,38 +111,21 @@ class Persona {
 }
 
 // ------------- Clases hijo
-class Estudiante extends Persona {
-    // ------------- Campos de clase
-    #seccionEstudiantes = document.querySelector('#estudiantes');
-    #templateEstudiantes = document.querySelector('#estudiantes-template');
-    #fragmentEstudiantes = new DocumentFragment();
+// 
+// ------------- Clase de estudiantes
+class Estudiante extends Persona {}
 
-    // ------------- Métodos
-    //
-    // ------------- Constructor
-    constructor(nombre, edad, ocupacion) {
-        super(nombre, edad, ocupacion);
+// ------------- Clase de profesores
+class Profesor extends Persona {}
 
-        this.#seccionEstudiantes = document.querySelector('#estudiantes');
-        this.#templateEstudiantes = document.querySelector('#estudiantes-template');
-        this.#fragmentEstudiantes = new DocumentFragment();
-    }
-}
+// ------------- Delegación de eventos
+//
+// ------------- Al hacer click
+FuncionesGlobales.getSeccionPersonas.addEventListener('click', (e) => {
+    console.log(e.target);
+});
 
-class Profesor extends Persona {
-    // ------------- Campos de clase
-    #seccionProfesores;
-    #templateProfesores;
-    #fragmentProfesores;
-
-    // ------------- Métodos
-    //
-    // ------------- Constructor
-    constructor(nombre, edad, ocupacion) {
-        super(nombre, edad, ocupacion);
-        
-        this.#seccionProfesores = document.querySelector('#profesores');
-        this.#templateProfesores = document.querySelector('#profesores-template');
-        this.#fragmentProfesores = new DocumentFragment();
-    }
-}
+// ------------- Al hacer submit
+FuncionesGlobales.getFormularioIngreso.addEventListener('submit', (e) => {
+    console.log(e.target);
+});
