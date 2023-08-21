@@ -98,6 +98,31 @@ class FuncionesGlobales {
         return Math.random().toString(36).substring(2) + Date.now();
     }
 
+    static aprobarReprobar(botonAccion) {
+        const nodoPadre = botonAccion.parentElement;
+        const statusEstudiante = nodoPadre.querySelector('.card-title span.badge');
+
+        botonAccion.disabled = !botonAccion.disabled;
+
+        if(botonAccion.textContent === 'Aprobar') {
+            const botonReprobar = botonAccion.nextElementSibling;
+
+            botonReprobar.disabled = !botonReprobar.disabled;
+
+            statusEstudiante.textContent = 'Aprobado';
+            statusEstudiante.classList.replace('bg-danger', 'bg-success');
+        }
+
+        if(botonAccion.textContent === 'Reprobar') {
+            const botonReprobar = botonAccion.previousElementSibling;
+
+            botonReprobar.disabled = !botonReprobar.disabled;
+            
+            statusEstudiante.textContent = 'Reprobado';
+            statusEstudiante.classList.replace('bg-success', 'bg-danger');
+        }
+    }
+
     // ------------- Getters globales
     //
     // ------------- Getter del formulario de ingreso
@@ -218,7 +243,11 @@ class Profesor extends Persona {
 //
 // ------------- Al hacer click
 FuncionesGlobales.getSeccionPersonas.addEventListener('click', (e) => {
-    console.log(e.target);
+    const fuenteEvento = e.target;
+
+    if(fuenteEvento.matches('.btn.btn-success') || fuenteEvento.matches('.btn.btn-danger')) {
+        FuncionesGlobales.aprobarReprobar(e.target);
+    }
 });
 
 // ------------- Al hacer submit
