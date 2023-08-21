@@ -240,7 +240,7 @@ class Profesor extends Persona {
     // ------------- Métodos
     //
     // ------------- Constructor
-    constructor(nombre, edad, ocupacion, id = null) {
+    constructor(nombre, edad, ocupacion, id = '') {
         super(nombre, edad, ocupacion);
 
         this.#id = id;
