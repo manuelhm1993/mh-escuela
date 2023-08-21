@@ -261,6 +261,8 @@ class Profesor extends Persona {
 //
 // ------------- Al hacer click
 FuncionesGlobales.getSeccionPersonas.addEventListener('click', (e) => {
+    e.stopPropagation();
+
     const fuenteEvento = e.target;
 
     if(fuenteEvento.matches('.btn.btn-success') || fuenteEvento.matches('.btn.btn-danger')) {
