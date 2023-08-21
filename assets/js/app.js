@@ -3,24 +3,57 @@ class FuncionesGlobales {
     // ------------- Campos de clase
     // 
     // ------------- Campos globales
+    static #listaPersonas = {};
+
     static #formularioIngreso = document.querySelector('#formulario-ingreso');
     static #seccionPersonas = document.querySelector('.container main + section.row');
-    static #fragment = new DocumentFragment();
-    static #listaPersonas = {};
 
     // ------------- Sección de estudiantes
     static #seccionEstudiantes = document.querySelector('#estudiantes');
-    static #templateEstudiantes = document.querySelector('#estudiantes-template');
+    static #templateEstudiantes = document.querySelector('#estudiantes-template').content;
+    static #fragmentEstudiantes = new DocumentFragment();
 
     // ------------- Sección de profesores
     static #seccionProfesores = document.querySelector('#profesores');
-    static #templateProfesores = document.querySelector('#profesores-template');
+    static #templateProfesores = document.querySelector('#profesores-template').content;
+    static #fragmentProfesores = new DocumentFragment();
 
     // ------------- Métodos
     //
     // ------------- Renderiza las cards
     static leerListaPersonas() {
-        FuncionesGlobales.#seccionPersonas.textContent = '';
+        FuncionesGlobales.#seccionEstudiantes.textContent = '';
+        FuncionesGlobales.#seccionProfesores.textContent = '';
+
+        Object.values(FuncionesGlobales.#listaPersonas).forEach(persona => {
+            switch(persona.getOcupacion) {
+                case 'Estudiante':
+                    FuncionesGlobales.#leerEstudiantes(persona);
+                break;
+            case 'Profesor':
+                    FuncionesGlobales.#leerProfesores(persona);
+                break;
+            }
+        });
+
+        FuncionesGlobales.#seccionEstudiantes.appendChild(FuncionesGlobales.#fragmentEstudiantes);
+        FuncionesGlobales.#seccionProfesores.appendChild(FuncionesGlobales.#fragmentProfesores);
+    }
+
+    // ------------- Renderiza la sección de estudiantes
+    static #leerEstudiantes(estudiante) {
+        const clonTemplate = FuncionesGlobales.#templateEstudiantes.cloneNode(true);
+
+        clonTemplate.querySelector('.card-body .card-title span.text-primary').textContent = estudiante.getNombre;
+        clonTemplate.querySelector('.card-body h6.card-text').textContent = estudiante.getOcupacion;
+        clonTemplate.querySelector('.card-body p.card-text.lead span').textContent = estudiante.getEdad;
+
+        FuncionesGlobales.#fragmentEstudiantes.appendChild(clonTemplate);
+    }
+
+    // ------------- Renderiza la sección de profesores
+    static #leerProfesores(profesor) {
+
     }
 
     // ------------- Procesa el formulario y registra un nuevo usuario
@@ -50,6 +83,8 @@ class FuncionesGlobales {
         FuncionesGlobales.#listaPersonas[persona.getID] = persona;
 
         formulario.reset();
+
+        FuncionesGlobales.leerListaPersonas();
     }
 
     // ------------- Crea un nuevo ID alphanumérico con el instante de creación
@@ -67,35 +102,6 @@ class FuncionesGlobales {
     // ------------- Getter del formulario de ingreso
     static get getSeccionPersonas() {
         return FuncionesGlobales.#seccionPersonas;
-    }
-
-    // ------------- Getter del fragment
-    static get getFragment() {
-        return FuncionesGlobales.#fragment;
-    }
-
-    // ------------- Getters estudiantes
-    //
-    // ------------- Getter de la sección
-    static get getSeccionEstudiantes() {
-        return FuncionesGlobales.#seccionEstudiantes;
-    }
-
-    // ------------- Getter de la sección
-    static get getTemplateEstudiantes() {
-        return FuncionesGlobales.#templateEstudiantes;
-    }
-
-    // ------------- Getters profesores
-    //
-    // ------------- Getter de la sección
-    static get getSeccionProfesores() {
-        return FuncionesGlobales.#seccionProfesores;
-    }
-
-    // ------------- Getter de la sección
-    static get getTemplateProfesores() {
-        return FuncionesGlobales.#templateProfesores;
     }
 }
 
