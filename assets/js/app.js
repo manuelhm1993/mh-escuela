@@ -28,16 +28,24 @@ class FuncionesGlobales {
         Object.values(FuncionesGlobales.#listaPersonas).forEach(persona => {
             switch(persona.getOcupacion) {
                 case 'Estudiante':
-                    FuncionesGlobales.#leerEstudiantes(persona);
+                    const clonTemplateEstudiante = FuncionesGlobales.#leerEstudiantes(persona);
+
+                    FuncionesGlobales.#fragmentEstudiantes.appendChild(clonTemplateEstudiante);
                 break;
             case 'Profesor':
-                    FuncionesGlobales.#leerProfesores(persona);
+                    const clonTemplateProfesor = FuncionesGlobales.#leerProfesores(persona);
+
+                    FuncionesGlobales.#fragmentProfesores.appendChild(clonTemplateProfesor);
                 break;
             }
         });
 
         FuncionesGlobales.#seccionEstudiantes.appendChild(FuncionesGlobales.#fragmentEstudiantes);
         FuncionesGlobales.#seccionProfesores.appendChild(FuncionesGlobales.#fragmentProfesores);
+
+        // ------------- Resetear los fragments
+        FuncionesGlobales.#fragmentEstudiantes = new DocumentFragment();
+        FuncionesGlobales.#fragmentProfesores = new DocumentFragment();
     }
 
     // ------------- Renderiza la sección de estudiantes
@@ -71,7 +79,7 @@ class FuncionesGlobales {
             boton.dataset.idEstudiante = estudiante.getID;
         });
 
-        FuncionesGlobales.#fragmentEstudiantes.appendChild(clonTemplate);
+        return clonTemplate;
     }
 
     // ------------- Renderiza la sección de profesores
@@ -82,7 +90,7 @@ class FuncionesGlobales {
         clonTemplate.querySelector('.card-body h6.card-text').textContent = profesor.getOcupacion;
         clonTemplate.querySelector('.card-body p.card-text.lead span').textContent = profesor.getEdad;
 
-        FuncionesGlobales.#fragmentProfesores.appendChild(clonTemplate);
+        return clonTemplate;
     }
 
     // ------------- Procesa el formulario y registra un nuevo usuario
@@ -106,7 +114,7 @@ class FuncionesGlobales {
 
         FuncionesGlobales.#listaPersonas[persona.getID] = persona;
         FuncionesGlobales.leerListaPersonas();
-        
+
         formulario.reset();
     }
 
