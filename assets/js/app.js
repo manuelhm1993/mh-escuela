@@ -6,6 +6,7 @@ class FuncionesGlobales {
     static #formularioIngreso = document.querySelector('#formulario-ingreso');
     static #seccionPersonas = document.querySelector('.container main + section.row');
     static #fragment = new DocumentFragment();
+    static #listaPersonas = {};
 
     // ------------- Sección de estudiantes
     static #seccionEstudiantes = document.querySelector('#estudiantes');
@@ -17,6 +18,45 @@ class FuncionesGlobales {
 
     // ------------- Métodos
     //
+    // ------------- Renderiza las cards
+    static leerListaPersonas() {
+        FuncionesGlobales.#seccionPersonas.textContent = '';
+    }
+
+    // ------------- Procesa el formulario y registra un nuevo usuario
+    static procesarIngreso(formulario) {
+        const data = new FormData(formulario);
+        let persona = null;
+
+        switch(data.get('ocupacion')) {
+            case 'Estudiante':
+                persona = new Estudiante(
+                    data.get('nombre'),
+                    data.get('edad'),
+                    data.get('ocupacion'),
+                    FuncionesGlobales.generarID()
+                );
+                break;
+            case 'Profesor':
+                persona = new Profesor(
+                    data.get('nombre'),
+                    data.get('edad'),
+                    data.get('ocupacion'),
+                    FuncionesGlobales.generarID()
+                );
+                break;
+        }
+
+        FuncionesGlobales.#listaPersonas[persona.getID] = persona;
+
+        formulario.reset();
+    }
+
+    // ------------- Crea un nuevo ID alphanumérico con el instante de creación
+    static generarID() {
+        return Math.random().toString(36).substring(2) + Date.now();
+    }
+
     // ------------- Getters globales
     //
     // ------------- Getter del formulario de ingreso
@@ -113,10 +153,54 @@ class Persona {
 // ------------- Clases hijo
 // 
 // ------------- Clase de estudiantes
-class Estudiante extends Persona {}
+class Estudiante extends Persona {
+    // ------------- Campos de clase
+    #id;
+
+    // ------------- Métodos
+    //
+    // ------------- Constructor
+    constructor(nombre, edad, ocupacion, id = null) {
+        super(nombre, edad, ocupacion);
+
+        this.#id = id;
+    }
+
+    // ------------- Getter del id
+    get getID() {
+        return this.#id;
+    }
+
+    // ------------- Setter del id
+    set setID(id) {
+        this.#id = id;
+    }
+}
 
 // ------------- Clase de profesores
-class Profesor extends Persona {}
+class Profesor extends Persona {
+    // ------------- Campos de clase
+    #id;
+    
+    // ------------- Métodos
+    //
+    // ------------- Constructor
+    constructor(nombre, edad, ocupacion, id = null) {
+        super(nombre, edad, ocupacion);
+
+        this.#id = id;
+    }
+
+    // ------------- Getter del id
+    get getID() {
+        return this.#id;
+    }
+
+    // ------------- Setter del id
+    set setID(id) {
+        this.#id = id;
+    }
+}
 
 // ------------- Delegación de eventos
 //
@@ -127,5 +211,6 @@ FuncionesGlobales.getSeccionPersonas.addEventListener('click', (e) => {
 
 // ------------- Al hacer submit
 FuncionesGlobales.getFormularioIngreso.addEventListener('submit', (e) => {
-    console.log(e.target);
+    e.preventDefault();
+    FuncionesGlobales.procesarIngreso(e.target);
 });
