@@ -53,7 +53,13 @@ class FuncionesGlobales {
 
     // ------------- Renderiza la sección de profesores
     static #leerProfesores(profesor) {
+        const clonTemplate = FuncionesGlobales.#templateProfesores.cloneNode(true);
 
+        clonTemplate.querySelector('.card-body .card-title').textContent = profesor.getNombre;
+        clonTemplate.querySelector('.card-body h6.card-text').textContent = profesor.getOcupacion;
+        clonTemplate.querySelector('.card-body p.card-text.lead span').textContent = profesor.getEdad;
+
+        FuncionesGlobales.#fragmentProfesores.appendChild(clonTemplate);
     }
 
     // ------------- Procesa el formulario y registra un nuevo usuario
