@@ -10,22 +10,22 @@
 </head>
 <body>
     <div class="container">
-        <main class="mt-5">
+        <main class="my-5">
             <h1>Agregar estudiantes y profesores</h1>
 
-            <form action="#">
+            <!-- Formulario de ingreso -->
+            <form action="#" method="get" id="formulario-ingreso">
                 <div class="mb-2">
-                    <input type="text" class="form-control" name="nombre" id="nombre" value="Manuel" required>
+                    <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Nombre" required>
                 </div>
 
                 <div class="mb-2">
-                    <input type="number" class="form-control" min="1" max="100" name="edad" id="edad" value="30" required>
+                    <input type="number" class="form-control" min="1" max="100" name="edad" id="edad" placeholder="Edad" required>
                 </div>
 
                 <div class="mb-2">
                     <select class="form-select" name="tipo" id="tipo" aria-label="Tipo de objeto" required>
-                        <option selected>Seleccione el tipo de registro</option>
-                        <option value="Estudiante">Estudiante</option>
+                        <option value="Estudiante" selected>Estudiante</option>
                         <option value="Profesor">Profesor</option>
                     </select>
                 </div>
@@ -34,31 +34,48 @@
             </form>
         </main>
 
-        <section class="row mt-4">
-            <article class="col-6" id="estudiantes">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Manuel <span class="badge bg-danger">Reprobado</span></h5>
-                        <p class="card-text">Estudiante</p>
-                        <p class="card-text">30 años</p>
+        <section class="row">
+            <!-- Sección de estudiantes -->
+            <div class="col-6" id="estudiantes"></div>
 
-                        <button class="btn btn-success" type="button">Aprobar</button>
-                        <button class="btn btn-danger" type="button" disabled>Reprobar</button>
-                    </div>
-                </div>
-            </article>
-
-            <article class="col-6" id="profesores">
-                <div class="card bg-black">
-                    <div class="card-body">
-                        <h5 class="card-title">Manuel</h5>
-                        <p class="card-text">Profesor</p>
-                        <p class="card-text">30 años</p>
-                    </div>
-                </div>
-            </article>
+            <!-- Sección de profesores -->
+            <div class="col-6" id="profesores"></div>
         </section>
     </div>
+
+    <!-- Templates -->
+    <!--  -->
+    <!-- Template de estudiantes -->
+    <template id="estudiantes-template">
+        <article class="card mb-2">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <span class="text-primary">Manuel</span>
+                    <span class="badge bg-success" role="button">Aprobado</span>
+                </h5>
+
+                <h6 class="card-text">Estudiante</h6>
+
+                <p class="card-text lead">30 años</p>
+
+                <button class="btn btn-success" type="button" disabled>Aprobar</button>
+                <button class="btn btn-danger" type="button">Reprobar</button>
+            </div>
+        </article>
+    </template>
+
+    <!-- Template de profesores -->
+    <template id="profesores-template">
+        <article class="card bg-dark text-white mb-2">
+            <div class="card-body">
+                <h5 class="card-title">Manuel</h5>
+
+                <h6 class="card-text">Profesor</h6>
+                
+                <p class="card-text lead">30 años</p>
+            </div>
+        </article>
+    </template>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
     <script src="assets/js/app.js"></script>
