@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MH - Escuela</title>
 
+    <link rel="shortcut icon" href="assets/img/favicon.ico" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 </head>
 <body>
@@ -32,6 +33,31 @@
                 <button class="btn btn-primary" type="submit">Agregar</button>
             </form>
         </main>
+
+        <section class="row mt-4">
+            <article class="col-6" id="estudiantes">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Manuel <span class="badge bg-danger">Reprobado</span></h5>
+                        <p class="card-text">Estudiante</p>
+                        <p class="card-text">30 años</p>
+
+                        <button class="btn btn-success" type="button">Aprobar</button>
+                        <button class="btn btn-danger" type="button" disabled>Reprobar</button>
+                    </div>
+                </div>
+            </article>
+
+            <article class="col-6" id="profesores">
+                <div class="card bg-black">
+                    <div class="card-body">
+                        <h5 class="card-title">Manuel</h5>
+                        <p class="card-text">Profesor</p>
+                        <p class="card-text">30 años</p>
+                    </div>
+                </div>
+            </article>
+        </section>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
