@@ -48,6 +48,29 @@ class FuncionesGlobales {
         clonTemplate.querySelector('.card-body h6.card-text').textContent = estudiante.getOcupacion;
         clonTemplate.querySelector('.card-body p.card-text.lead span').textContent = estudiante.getEdad;
 
+        const statusActual = estudiante.getStatus;
+        const statusEstudiante = clonTemplate.querySelector('.card-body .card-title span.badge');
+        const botonesAccion = clonTemplate.querySelectorAll('.card-body .btn');
+
+        statusEstudiante.textContent = statusActual;
+
+        switch(statusActual) {
+            case 'Aprobado':
+                botonesAccion[0].disabled = true;
+                botonesAccion[1].disabled = false;
+                statusEstudiante.classList.replace('bg-danger', 'bg-success');
+                break;
+            case 'Reprobado':
+                botonesAccion[0].disabled = false;
+                botonesAccion[1].disabled = true;
+                statusEstudiante.classList.replace('bg-success', 'bg-danger');
+                break;
+        }
+
+        botonesAccion.forEach(boton => {
+            boton.dataset.idEstudiante = estudiante.getID;
+        });
+
         FuncionesGlobales.#fragmentEstudiantes.appendChild(clonTemplate);
     }
 
@@ -98,29 +121,12 @@ class FuncionesGlobales {
         return Math.random().toString(36).substring(2) + Date.now();
     }
 
+    // ------------- Cambia el status del estudiante a aprobado o reprobado
     static aprobarReprobar(botonAccion) {
-        const nodoPadre = botonAccion.parentElement;
-        const statusEstudiante = nodoPadre.querySelector('.card-title span.badge');
+        const statusEstudiante = (botonAccion.textContent === 'Aprobar') ? 'Aprobado' : 'Reprobado';
 
-        botonAccion.disabled = !botonAccion.disabled;
-
-        if(botonAccion.textContent === 'Aprobar') {
-            const botonReprobar = botonAccion.nextElementSibling;
-
-            botonReprobar.disabled = !botonReprobar.disabled;
-
-            statusEstudiante.textContent = 'Aprobado';
-            statusEstudiante.classList.replace('bg-danger', 'bg-success');
-        }
-
-        if(botonAccion.textContent === 'Reprobar') {
-            const botonReprobar = botonAccion.previousElementSibling;
-
-            botonReprobar.disabled = !botonReprobar.disabled;
-            
-            statusEstudiante.textContent = 'Reprobado';
-            statusEstudiante.classList.replace('bg-success', 'bg-danger');
-        }
+        FuncionesGlobales.#listaPersonas[botonAccion.dataset.idEstudiante].setStatus = statusEstudiante;
+        FuncionesGlobales.leerListaPersonas();
     }
 
     // ------------- Getters globales
@@ -193,14 +199,16 @@ class Persona {
 class Estudiante extends Persona {
     // ------------- Campos de clase
     #id;
+    #status;
 
     // ------------- Métodos
     //
     // ------------- Constructor
-    constructor(nombre, edad, ocupacion, id = null) {
+    constructor(nombre, edad, ocupacion, id = '', status = 'Aprobado') {
         super(nombre, edad, ocupacion);
 
         this.#id = id;
+        this.#status = status;
     }
 
     // ------------- Getter del id
@@ -208,9 +216,19 @@ class Estudiante extends Persona {
         return this.#id;
     }
 
+    // ------------- Getter del status
+    get getStatus() {
+        return this.#status;
+    }
+
     // ------------- Setter del id
     set setID(id) {
         this.#id = id;
+    }
+
+    // ------------- Setter del status
+    set setStatus(status) {
+        this.#status = status;
     }
 }
 
