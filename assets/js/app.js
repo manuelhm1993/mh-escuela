@@ -1,4 +1,4 @@
-import { FuncionesGlobales } from "./mh-clases/FuncionesGlobales.js";
+import FuncionesGlobales from "./mh-clases/FuncionesGlobales.js";
 
 // ------------- Delegación de eventos
 //

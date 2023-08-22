@@ -1,4 +1,4 @@
-import { Persona } from "./Persona.js";
+import Persona from "./Persona.js";
 
 class Estudiante extends Persona {
     // ------------- Campos de clase
@@ -36,4 +36,4 @@ class Estudiante extends Persona {
     }
 }
 
-export { Estudiante };
+export default Estudiante;

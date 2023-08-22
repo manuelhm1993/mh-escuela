@@ -1,6 +1,5 @@
-import { Persona } from "./Persona.js";
-import { Estudiante } from "./Estudiante.js";
-import { Profesor } from "./Profesor.js";
+import Estudiante from "./Estudiante.js";
+import Profesor from "./Profesor.js";
 
 class FuncionesGlobales {
     // ------------- Campos de clase
@@ -166,4 +165,9 @@ class FuncionesGlobales {
     }
 }
 
-export { FuncionesGlobales };
+// export default FuncionesGlobales;
+
+// ------------- Alternativamente
+export {
+    FuncionesGlobales as default
+}
