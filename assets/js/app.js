@@ -5,6 +5,7 @@ class FuncionesGlobales {
     // ------------- Campos globales
     static #listaPersonas = {};
 
+    static #feedbackError = document.querySelector('.container main .alert.alert-danger');
     static #formularioIngreso = document.querySelector('#formulario-ingreso');
     static #seccionPersonas = document.querySelector('.container main + section.row');
 
@@ -101,6 +102,15 @@ class FuncionesGlobales {
         // ------------- Destructory del iterator
         const [nombre, edad, ocupacion] = [...data.values()];
 
+        if(nombre.trim().length < 1) {
+            FuncionesGlobales.#feedbackError.classList.remove('d-none');
+
+            formulario['nombre'].value = '';
+            formulario['nombre'].focus();
+
+            return;
+        }
+
         switch(data.get('ocupacion')) {
             case 'Estudiante':
                 persona = new Estudiante(nombre, edad, ocupacion);
@@ -116,6 +126,10 @@ class FuncionesGlobales {
         FuncionesGlobales.leerListaPersonas();
 
         formulario.reset();
+
+        if(!FuncionesGlobales.#feedbackError.classList.contains('d-none')) {
+            FuncionesGlobales.#feedbackError.classList.add('d-none');
+        }
     }
 
     // ------------- Crea un nuevo ID alphanumérico con el instante de creación
@@ -141,6 +155,11 @@ class FuncionesGlobales {
     // ------------- Getter del formulario de ingreso
     static get getSeccionPersonas() {
         return FuncionesGlobales.#seccionPersonas;
+    }
+
+    // ------------- Getter del alert error
+    static get getFeedbackError() {
+        return FuncionesGlobales.#feedbackError;
     }
 }
 
